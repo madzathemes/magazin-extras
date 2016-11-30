@@ -4,7 +4,7 @@ class Subscribe_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'subscribe_widget',
-			__( 'tophot Subscribe', 'tophot' ),
+			__( 'mt Subscribe', 'tophot' ),
 			array( 'description' =>  esc_html__( 'A Subscribe Widget', 'tophot' ), )
 		);
 	}

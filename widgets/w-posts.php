@@ -4,7 +4,7 @@ class Posts_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'posts_widget',
-			__( 'tophot Posts', 'tophot' ),
+			__( 'mt Posts', 'tophot' ),
 			array( 'description' => esc_html__( 'A Post Widget', 'tophot' ), )
 		);
 	}
@@ -20,6 +20,7 @@ class Posts_Widget extends WP_Widget {
 		$title_type = "";
 		$orderby = "";
 		$pagination = "";
+		$tag = "";
 
 		$widget_id = "";
 
@@ -28,11 +29,12 @@ class Posts_Widget extends WP_Widget {
 		if ( ! empty( $instance['offset'] ) ) { $offset = $instance['offset'];	}
 		if ( ! empty( $instance['category'] ) ) { $category = $instance['category'];	}
 		if ( ! empty( $instance['title'] ) ) { $title = $instance['title'];	}
+		if ( ! empty( $instance['tag'] ) ) { $tag = $instance['tag'];	}
 		if ( ! empty( $instance['title_type'] ) ) { $title_type = $instance['title_type'];	}
 		if ( ! empty( $instance['orderby'] ) ) { $orderby = $instance['orderby'];	}
 		if ( ! empty( $instance['pagination'] ) ) { $pagination = $instance['pagination'];	}
 
-		echo do_shortcode("[posts  type='$type' item_nr='$item_nr' offset='$offset' orderby='$orderby' category='$category' title='$title' pagination='$pagination' title_type='$title_type']");
+		echo do_shortcode("[posts type='$type' item_nr='$item_nr' offset='$offset' orderby='$orderby' category='$category' tag='$tag' title='$title' pagination='$pagination' title_type='$title_type']");
 
 		echo $args['after_widget'];
 	}
@@ -46,6 +48,7 @@ class Posts_Widget extends WP_Widget {
 		$title_type = ! empty( $instance['title_type'] ) ? $instance['title_type'] : esc_html__( '', 'tophot' );
 		$orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : esc_html__( '', 'tophot' );
 		$pagination = ! empty( $instance['pagination'] ) ? $instance['pagination'] : esc_html__( '', 'tophot' );
+		$tag = ! empty( $instance['tag'] ) ? $instance['tag'] : esc_html__( '', 'tophot' );
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'type' ) ); ?>"><?php _e( esc_attr( 'Type:' ) ); ?></label>
@@ -70,6 +73,10 @@ class Posts_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>"><?php _e( esc_attr( 'Category slug:' ) ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'category' ) ); ?>" type="text" value="<?php echo esc_attr( $category ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'tag' ) ); ?>"><?php _e( esc_attr( 'Tag slug:' ) ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'tag' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'tag' ) ); ?>" type="text" value="<?php echo esc_attr( $tag ); ?>">
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"><?php _e( esc_attr( 'OrderBy:' ) ); ?></label>
@@ -116,6 +123,7 @@ class Posts_Widget extends WP_Widget {
 		$instance['title_type'] = ( ! empty( $new_instance['title_type'] ) ) ? strip_tags( $new_instance['title_type'] ) : '';
 		$instance['orderby'] = ( ! empty( $new_instance['orderby'] ) ) ? strip_tags( $new_instance['orderby'] ) : '';
 		$instance['pagination'] = ( ! empty( $new_instance['pagination'] ) ) ? strip_tags( $new_instance['pagination'] ) : '';
+		$instance['tag'] = ( ! empty( $new_instance['tag'] ) ) ? strip_tags( $new_instance['tag'] ) : '';
 		return $instance;
 	}
 

@@ -76,6 +76,27 @@ function magazin_customize_ads($wp_customize){
     ),
   ));
 
+  $wp_customize->add_section('article_ad_top', array(
+    'title'    	=> esc_html__('Article top ad', 'magazin'),
+    'priority' => 8,
+    'panel'  => 'magazin_ads',
+  ));
+
+  Kirki::add_field( 'magazin_theme_options[article_ad_top]', array(
+    'type'        => 'code',
+    'settings'    => 'magazin_theme_options[article_ad_top]',
+    'label'       =>  esc_html__( 'YOUR AD CODE', 'magazin' ),
+    'section'     => 'article_ad_top',
+    'default'     => '',
+    'priority'    => 10,
+    'option_type' => 'option',
+    'choices'     => array(
+      'language' => 'css, html, javascript',
+      'theme'    => 'monokai',
+      'height'   => 250,
+    ),
+  ));
+
   $wp_customize->add_section('article_ad_bottom', array(
     'title'    	=> esc_html__('Article bottom ad', 'magazin'),
     'priority' => 8,

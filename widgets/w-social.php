@@ -4,7 +4,7 @@ class Social_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'social_widget',
-			__( 'tophot Social', 'magazin' ),
+			__( 'mt Social', 'magazin' ),
 			array( 'description' => esc_html__( 'A Social Widget', 'magazin' ), )
 		);
 	}

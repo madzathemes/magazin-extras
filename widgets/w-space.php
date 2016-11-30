@@ -4,7 +4,7 @@ class Space_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'space_widget',
-			__( 'tophot Space', 'tophot' ),
+			__( 'mt Space', 'tophot' ),
 			array( 'description' => esc_html__( 'A Space Widget', 'tophot' ), )
 		);
 	}
@@ -22,7 +22,7 @@ class Space_Widget extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$size = ! empty( $instance['size'] ) ? $instance['size'] : esc_html__( 'size', 'tophot' );
+		$size = ! empty( $instance['size'] ) ? $instance['size'] : esc_html__( '40', 'tophot' );
 		?>
 		<p>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>"><?php _e( esc_attr( 'Size:' ) ); ?></label>

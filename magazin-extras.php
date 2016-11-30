@@ -9,6 +9,13 @@ Author URI: https://themeforest.net/user/madza
 */
 include_once ('plugins/easy-google-fonts/easy-google-fonts.php');
 include_once ('plugins/megadropdownmenu-master/megadropdown.php');
+if (class_exists('WPBakeryShortCode')) {
+	include_once ('vc-shortcodes/vc-ads.php');
+	include_once ('vc-shortcodes/vc-subscribe.php');
+	include_once ('vc-shortcodes/vc-social.php');
+	include_once ('vc-shortcodes/vc-grid.php');
+	include_once ('vc-shortcodes/vc-posts.php');
+}
 include_once ('shortcodes/s-ads.php');
 include_once ('shortcodes/s-posts.php');
 include_once ('shortcodes/s-space.php');
@@ -56,7 +63,7 @@ function magazin_random_template() {
 function magazin_theme_setup() {
 
 	add_image_size( 'magazin_350', 420, 320, true );
-	add_image_size( 'magazin_585', 640, 640, true );
+	add_image_size( 'magazin_585', 640, 313, true );
 	add_image_size( 'magazin_100', 100, 68, true );
 
 }

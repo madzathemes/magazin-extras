@@ -4,7 +4,7 @@ class Ads_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'ad_widget',
-			__( 'tophot Ad', 'tophot' ),
+			__( 'mt Ad', 'tophot' ),
 			array( 'description' => esc_html__( 'A Ad Widget', 'tophot' ), )
 		);
 	}

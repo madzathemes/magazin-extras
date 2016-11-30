@@ -11,7 +11,7 @@ function grid( $atts, $content = null ) {
 			'class' => '',
 			'type' => '1',
 			'offset'=> '',
-			'title_type'=> 'off',
+			'position'=> 'off',
 			'title'=> 'Title',
 			), $atts));
 
@@ -83,9 +83,9 @@ function grid( $atts, $content = null ) {
 				$shares = $share;
 			}
       global $post;
-			if($title_type=="center" and $title != ""){ $shortcode .= '<h2 class="heading"><span>'.$title.'</span></h2>'; }
-			if($title_type=="left" and $title != ""){ $shortcode .= '<h2 class="heading heading-left"><span>'.$title.'</span></h2>'; }
-			if($title_type=="right" and $title != ""){ $shortcode .= '<h2 class="heading heading-right"><span>'.$title.'</span></h2>'; }
+			if($position=="center" and $title != ""){ $shortcode .= '<h2 class="heading"><span>'.$title.'</span></h2>'; }
+			if($position=="left" and $title != ""){ $shortcode .= '<h2 class="heading heading-left"><span>'.$title.'</span></h2>'; }
+			if($position=="right" and $title != ""){ $shortcode .= '<h2 class="heading heading-right"><span>'.$title.'</span></h2>'; }
 
 			if($the_query->have_posts()) {
 				$shortcode .='<div>';
@@ -110,35 +110,36 @@ function grid( $atts, $content = null ) {
 						$img_srcset = wp_get_attachment_image_srcset( $attachment_id );
 						$img_srcset_2 = wp_get_attachment_image_srcset( $attachment_id, "full" );
 
-						$shortcode .='<div class="grid-post nr-'.$i.' style-1 '; if (has_post_format( 'video' )) { $shortcode .= ' video'; } $shortcode .='">';
+						$shortcode .='<div class="grid-post mt-radius nr-'.$i.' style-1 '; if (has_post_format( 'video' )) { $shortcode .= ' video'; } $shortcode .='">';
 							$shortcode .='<a href="'. get_the_permalink().'">';
 								$shortcode .='<div class="wrap">';
 		              if ( has_post_thumbnail() ) {  if($i==1) {
-											$shortcode .='<div class="lazyload mt-post-image"  data-bg="'. get_the_post_thumbnail_url(get_the_ID(),'magazin_585').'" ></div>';
+											$shortcode .='<div class="mt-post-image" ><div class="mt-post-image-background" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_5').');"></div><img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'. get_the_post_thumbnail_url(get_the_ID(),'large').'" width="550" height="550" /></div>';
 		                }
 		                if($i==2) {
-		                  $shortcode .='<div class="lazyload mt-post-image"  data-bg="'. get_the_post_thumbnail_url(get_the_ID(),'magazin_585').'" ></div>';
-		                }
+		                  $shortcode .='<div class="mt-post-image" ><div class="mt-post-image-background" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_5').');"></div><img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'. get_the_post_thumbnail_url(get_the_ID(),'large').'" width="550" height="550" /></div>';
+										}
 		                if($i==3) {
-		                  $shortcode .='<div class="lazyload mt-post-image"  data-bg="'. get_the_post_thumbnail_url(get_the_ID(),'magazin_585').'" ></div>';
-		                }
+		                  $shortcode .='<div class="mt-post-image" ><div class="mt-post-image-background" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_5').');"></div><img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'. get_the_post_thumbnail_url(get_the_ID(),'medium_large').'" width="550" height="550" /></div>';
+										}
 		                if($i==4) {
-		                  $shortcode .='<div class="lazyload mt-post-image"  data-bg="'. get_the_post_thumbnail_url(get_the_ID(),'magazin_585').'" ></div>';
-		                }
+		                  $shortcode .='<div class="mt-post-image" ><div class="mt-post-image-background" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_5').');"></div><img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'. get_the_post_thumbnail_url(get_the_ID(),'medium_large').'" width="550" height="550" /></div>';
+										}
 									}
 								$shortcode .='</div>';
-								$shortcode .='<div class="poster-cat"><span>';
-									$category_name = get_the_category(get_the_ID());
-									if(!empty($category_name[0])) { $shortcode .=''.$category_name[0]->name.''; }
-									if(!empty($category_name[1])) { $shortcode .=', '.$category_name[1]->name.''; }
-									if(!empty($category_name[2])) { $shortcode .=', '.$category_name[2]->name.''; }
-								$shortcode .='</span></div>';
+
 
                 $shortcode .='<div class="layouts">';
+									$shortcode .='<div class="poster-cat"><span class="mt-theme-background">';
+										$category_name = get_the_category(get_the_ID());
+										if(!empty($category_name[0])) { $shortcode .=''.$category_name[0]->name.''; }
+										if(!empty($category_name[1])) { $shortcode .=', '.$category_name[1]->name.''; }
+										if(!empty($category_name[2])) { $shortcode .=', '.$category_name[2]->name.''; }
+									$shortcode .='</span></div>';
 									$shortcode .='<h2>'. get_the_title() .'</h2>';
 										$shortcode .='<div class="post-info">';
-                      $shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-                      $shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+                      $shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazine-plug") .'</span>';
+                      $shortcode .='<span class="poster-views">'. $viewes .' '. esc_html__("views", "magazine-plug") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 
@@ -171,27 +172,28 @@ function grid( $atts, $content = null ) {
 						$img_srcset = wp_get_attachment_image_srcset( $attachment_id);
 						$img_srcset_2 = wp_get_attachment_image_srcset( $attachment_id);
 
-						$shortcode .='<div class="grid-post nr-'.$i.' style-2 '; if (has_post_format( 'video' )) { $shortcode .= ' video'; } $shortcode .='">';
+						$shortcode .='<div class="grid-post mt-radius nr-'.$i.' style-2 '; if (has_post_format( 'video' )) { $shortcode .= ' video'; } $shortcode .='">';
 							$shortcode .='<a href="'. get_the_permalink().'">';
 								$shortcode .='<div class="wrap">';
 									if ( has_post_thumbnail() ) {
-											$shortcode .='<div class="lazyload mt-post-image"  data-bg="'. get_the_post_thumbnail_url(get_the_ID(),'magazin_585').'" ></div>';
+										$shortcode .='<div class="mt-post-image" ><div class="mt-post-image-background" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_5').');"></div><img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'. get_the_post_thumbnail_url(get_the_ID(),'large').'" width="550" height="550" /></div>';
 									}
 								$shortcode .='</div>';
-								$shortcode .='<div class="poster-cat"><span>';
+
+
+								$shortcode .='<div class="layouts">';
+								$shortcode .='<div class="poster-cat"><span class="mt-theme-background">';
 									$category_name = get_the_category(get_the_ID());
 									if(!empty($category_name[0])) { $shortcode .=''.$category_name[0]->name.''; }
 									if(!empty($category_name[1])) { $shortcode .=', '.$category_name[1]->name.''; }
 									if(!empty($category_name[2])) { $shortcode .=', '.$category_name[2]->name.''; }
 								$shortcode .='</span></div>';
 
-								$shortcode .='<div class="layouts">';
-
 									$shortcode .='<h2>'. get_the_title() .'</h2>';
 
 										$shortcode .='<div class="post-info">';
-											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazine-plug") .'</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .' '. esc_html__("views", "magazine-plug") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 
@@ -228,27 +230,28 @@ function grid( $atts, $content = null ) {
 						$img_srcset = wp_get_attachment_image_srcset( $attachment_id );
 						$img_srcset_2 = wp_get_attachment_image_srcset( $attachment_id, "full" );
 
-						$shortcode .='<div class="grid-post nr-'.$i.' style-3 '; if (has_post_format( 'video' )) { $shortcode .= ' video'; } $shortcode .='">';
+						$shortcode .='<div class="grid-post mt-radius nr-'.$i.' style-3 '; if (has_post_format( 'video' )) { $shortcode .= ' video'; } $shortcode .='">';
 							$shortcode .='<a href="'. get_the_permalink().'">';
 								$shortcode .='<div class="wrap">';
 									if ( has_post_thumbnail() ) {
-											$shortcode .='<div class="lazyload mt-post-image"  data-bg="'. get_the_post_thumbnail_url(get_the_ID(),'magazin_585').'" ></div>';
+										$shortcode .='<div class="mt-post-image" ><div class="mt-post-image-background" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_5').');"></div><img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="'. get_the_post_thumbnail_url(get_the_ID(),'large').'" width="550" height="550" /></div>';
 									}
 								$shortcode .='</div>';
-								$shortcode .='<div class="poster-cat"><span>';
+
+
+								$shortcode .='<div class="layouts">';
+								$shortcode .='<div class="poster-cat"><span class="mt-theme-background">';
 									$category_name = get_the_category(get_the_ID());
 									if(!empty($category_name[0])) { $shortcode .=''.$category_name[0]->name.''; }
 									if(!empty($category_name[1])) { $shortcode .=', '.$category_name[1]->name.''; }
 									if(!empty($category_name[2])) { $shortcode .=', '.$category_name[2]->name.''; }
 								$shortcode .='</span></div>';
 
-								$shortcode .='<div class="layouts">';
-
 									$shortcode .='<h2>'. get_the_title() .'</h2>';
 
 										$shortcode .='<div class="post-info">';
-											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazine-plug") .'</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .' '. esc_html__("views", "magazine-plug") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 

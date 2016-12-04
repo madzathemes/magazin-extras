@@ -17,11 +17,13 @@ class Grid_Widget extends WP_Widget {
 		$offset = "";
 		$category = "";
 		$orderby = "";
-
+		$author = "";
 		$widget_id = "";
 		$tag = "";
 		$position = "";
 		$title = "";
+		$taxonomy = "";
+		$taxonomy_term = "";
 
 		if ( ! empty( $instance['type'] ) ) { $type = $instance['type']; }
 		if ( ! empty( $instance['offset'] ) ) { $offset = $instance['offset'];	}
@@ -29,8 +31,11 @@ class Grid_Widget extends WP_Widget {
 		if ( ! empty( $instance['orderby'] ) ) { $orderby = $instance['orderby'];	}
 		if ( ! empty( $instance['tag'] ) ) { $tag = $instance['tag'];	}
 		if ( ! empty( $instance['title'] ) ) { $title = $instance['title'];	}
+		if ( ! empty( $instance['author'] ) ) { $author = $instance['author'];	}
+		if ( ! empty( $instance['taxonomy'] ) ) { $taxonomy = $instance['taxonomy'];	}
+		if ( ! empty( $instance['taxonomy_term'] ) ) { $taxonomy_term = $instance['taxonomy_term'];	}
 
-		echo do_shortcode("[grid type='$type' tag='$tag' title='$title' position='$position' offset='$offset' orderby='$orderby' category='$category']");
+		echo do_shortcode("[grid type='$type' tag='$tag' taxonomy='$taxonomy' taxonomy_term='$taxonomy_term' author='$author' title='$title' position='$position' offset='$offset' orderby='$orderby' category='$category']");
 
 		echo $args['after_widget'];
 	}
@@ -41,6 +46,9 @@ class Grid_Widget extends WP_Widget {
 		$category = ! empty( $instance['category'] ) ? $instance['category'] : esc_html__( '', 'tophot' );
 		$orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : esc_html__( '', 'tophot' );
 		$tag = ! empty( $instance['tag'] ) ? $instance['tag'] : esc_html__( '', 'tophot' );
+		$author = ! empty( $instance['author'] ) ? $instance['author'] : esc_html__( '', 'tophot' );
+		$taxonomy = ! empty( $instance['taxonomy'] ) ? $instance['taxonomy'] : esc_html__( '', 'tophot' );
+		$taxonomy_term = ! empty( $instance['taxonomy_term'] ) ? $instance['taxonomy_term'] : esc_html__( '', 'tophot' );
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( esc_attr( 'Title:' ) ); ?></label>
@@ -67,6 +75,18 @@ class Grid_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'tag' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'tag' ) ); ?>" type="text" value="<?php echo esc_attr( $tag ); ?>">
 		</p>
 		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'author' ) ); ?>"><?php _e( esc_attr( 'Author slug:' ) ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'author' ) ); ?>" type="text" value="<?php echo esc_attr( $author ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'taxonomy' ) ); ?>"><?php _e( esc_attr( 'Taxonomy:' ) ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'taxonomy' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'taxonomy' ) ); ?>" type="text" value="<?php echo esc_attr( $taxonomy ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'taxonomy_term' ) ); ?>"><?php _e( esc_attr( 'Taxonomy Term:' ) ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'taxonomy_term' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'taxonomy_term' ) ); ?>" type="text" value="<?php echo esc_attr( $taxonomy_term ); ?>">
+		</p>
+		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"><?php _e( esc_attr( 'OrderBy:' ) ); ?></label>
 			<select class='widefat' id="<?php echo $this->get_field_id('orderby'); ?>" name="<?php echo $this->get_field_name('orderby'); ?>" type="text">
 				<option value='date'<?php echo ($orderby=='date')?'selected':''; ?>>Date</option>
@@ -89,6 +109,9 @@ class Grid_Widget extends WP_Widget {
 		$instance['tag'] = ( ! empty( $new_instance['tag'] ) ) ? strip_tags( $new_instance['tag'] ) : '';
 		$instance['orderby'] = ( ! empty( $new_instance['orderby'] ) ) ? strip_tags( $new_instance['orderby'] ) : '';
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['author'] = ( ! empty( $new_instance['author'] ) ) ? strip_tags( $new_instance['author'] ) : '';
+		$instance['taxonomy'] = ( ! empty( $new_instance['taxonomy'] ) ) ? strip_tags( $new_instance['taxonomy'] ) : '';
+		$instance['taxonomy_term'] = ( ! empty( $new_instance['taxonomy_term'] ) ) ? strip_tags( $new_instance['taxonomy_term'] ) : '';
 		return $instance;
 	}
 

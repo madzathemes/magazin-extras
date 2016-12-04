@@ -49,6 +49,35 @@ function magazin_customize_general($wp_customize){
     ),
  ));
 
+ Kirki::add_field( 'share_time', array(
+   'type'        => 'select',
+   'settings'    => 'share_time',
+   'label'       => esc_attr__( 'Share Count Check', 'magazin' ),
+   'section'     => 'performance',
+   'default'     => '36000',
+   'option_type' => 'option',
+   'priority'    => 10,
+   'multiple'    => 1,
+   'choices'     => array(
+     '10' => esc_attr__( 'Every 10 sec', 'magazin' ),
+     '20' => esc_attr__( 'Every 20 sec', 'magazin' ),
+     '30' => esc_attr__( 'Every 30 sec', 'magazin' ),
+     '60' => esc_attr__( 'Every 1 min', 'magazin' ),
+     '120' => esc_attr__( 'Every 2 min', 'magazin' ),
+     '180' => esc_attr__( 'Every 3 min', 'magazin' ),
+     '300' => esc_attr__( 'Every 5 min', 'magazin' ),
+     '600' => esc_attr__( 'Every 10 min', 'magazin' ),
+     '900' => esc_attr__( 'Every 15 min', 'magazin' ),
+     '1800' => esc_attr__( 'Every 30 min', 'magazin' ),
+     '3600' => esc_attr__( 'Every 1h', 'magazin' ),
+     '7200' => esc_attr__( 'Every 2h', 'magazin' ),
+     '18000' => esc_attr__( 'Every 5h', 'magazin' ),
+     '36000' => esc_attr__( 'Every 10h', 'magazin' ),
+     '86400' => esc_attr__( 'Every 24h', 'magazin' ),
+     '172800' => esc_attr__( 'Every 48h', 'magazin' ),
+   ),
+   ));
+
  Kirki::add_field( 'carousel_autoplay', array(
    'type'        => 'radio-buttonset',
    'settings'    => 'carousel_autoplay',
@@ -62,10 +91,6 @@ function magazin_customize_general($wp_customize){
      '2' => esc_attr__( 'OFF', 'magazin' ),
    ),
 ));
-
-
-
-
 
 
   $wp_customize->add_section('social_widget', array(

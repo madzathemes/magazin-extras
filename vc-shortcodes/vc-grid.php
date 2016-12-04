@@ -11,9 +11,10 @@ add_shortcode( 'mt_grid', 'mt_grid_func' );
             'type' => '',
 						'tag' => '',
             'offset' => '',
+						'author' => '',
         ), $atts));
 
-        $content_ = "[grid type='$type' tag='$tag' title='$title' position='$position' offset='$offset' orderby='$orderby' category='$category']";
+        $content_ = "[grid type='$type' author='$author' tag='$tag' title='$title' position='$position' offset='$offset' orderby='$orderby' category='$category']";
 
         return  do_shortcode($content_);
 
@@ -54,6 +55,12 @@ function mt_grid_fields() {
                 "param_name" => "tag",
                 "value" => "",
             ),
+						array(
+                 "type" => "textfield",
+                 "heading" => esc_html__("Author slug", "magazin"),
+                 "param_name" => "author",
+                 "value" => "",
+            	),
           array(
               "type" => "dropdown",
               "heading" => esc_html__("OrderBy", "magazin"),

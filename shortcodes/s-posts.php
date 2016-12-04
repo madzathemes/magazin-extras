@@ -15,6 +15,9 @@ function posts( $atts, $content = null ) {
 			'pagination'=> 'off',
 			'title_type'=> 'off',
 			'title'=> 'Title',
+			'author'=> '',
+			'taxonomy'=> '',
+			'taxonomy_term'=> '',
 			), $atts));
 
 			global $exclude_single_id, $post;
@@ -31,6 +34,11 @@ function posts( $atts, $content = null ) {
 				$paged = "";
 			}
 
+			$tax_query = "";
+			if(!empty($taxonomy) and !empty($taxonomy_term)) {
+				$tax_query =  array(array('taxonomy' => $taxonomy,'field' => 'slug','terms' => array( $taxonomy_term )));
+			}
+
 			$args = array(
 				'post_type'=>$posttype,
 				'order'=>$order,
@@ -41,6 +49,8 @@ function posts( $atts, $content = null ) {
 				'offset'=>$offset,
 				'category_name'=>$category,
 				'paged' => $paged,
+				'author_name'=>$author,
+				'tax_query' => $tax_query,
 				'tag'=>$tag
 			);
 
@@ -55,6 +65,8 @@ function posts( $atts, $content = null ) {
 				'meta_key' => 'magazin_post_views_count',
 				'category_name'=>$category,
 				'paged' => $paged,
+				'author_name'=>$author,
+				'tax_query' => $tax_query,
 				'tag'=>$tag
 			);
 			$args_shares = array(
@@ -68,6 +80,8 @@ function posts( $atts, $content = null ) {
 				'meta_key' => 'magazin_share_count_real',
 				'category_name'=>$category,
 				'paged' => $paged,
+				'author_name'=>$author,
+				'tax_query' => $tax_query,
 				'tag'=>$tag
 			);
 
@@ -318,6 +332,10 @@ function posts( $atts, $content = null ) {
 
 				if($type=="normal-right"){
 					while ( $the_query->have_posts() ) : $the_query->the_post();
+
+						$excerpt = get_post_meta(get_the_ID(), "magazin_excerpt", true);
+						if (!empty($excerpt)) { $excerpt_ = $excerpt; } else { $excerpt_ = magazin_custom_excerpts(23); }
+
 						$share = get_post_meta(get_the_ID(), "magazin_share_count", true);
 						$share_real = get_post_meta(get_the_ID(), "magazin_share_count_real", true);
 						$shares = $share_real;
@@ -385,7 +403,7 @@ function posts( $atts, $content = null ) {
 								}
 								$shortcode .='<a href="'. get_permalink().'"><h2>'. get_the_title() .'</h2></a>';
 								$shortcode .='<small><strong>'. get_the_author_meta( "display_name" ) .'</strong><span class="color-silver-light"> - '. esc_attr( get_the_date('M d, Y') ) .'</span></small>';
-								$shortcode .='<p>'.magazin_custom_excerpts(23).'</p>';
+								$shortcode .='<p>'.$excerpt_.'</p>';
 							$shortcode .='</div>';
 							$shortcode .='<div class="clearfix"></div>';
 						$shortcode .='</div>';
@@ -393,6 +411,10 @@ function posts( $atts, $content = null ) {
 				}
 				if($type=="normal-right-small"){
 					while ( $the_query->have_posts() ) : $the_query->the_post();
+
+					$excerpt = get_post_meta(get_the_ID(), "magazin_excerpt", true);
+					if (!empty($excerpt)) { $excerpt_ = $excerpt; } else { $excerpt_ = magazin_custom_excerpts(20); }
+
 						$share = get_post_meta(get_the_ID(), "magazin_share_count", true);
 						$share_real = get_post_meta(get_the_ID(), "magazin_share_count_real", true);
 						$shares = $share_real;
@@ -462,7 +484,7 @@ function posts( $atts, $content = null ) {
 								}
 								$shortcode .='<a href="'. get_permalink().'"><h2>'. get_the_title() .'</h2></a>';
 								$shortcode .='<small><strong>'. get_the_author_meta( "display_name" ) .'</strong><span class="color-silver-light"> - '. esc_attr( get_the_date('M d, Y') ) .'</span></small>';
-								$shortcode .='<p>'.magazin_custom_excerpts(20).'</p>';
+								$shortcode .='<p>'.$excerpt_.'</p>';
 							$shortcode .='</div>';
 							$shortcode .='<div class="clearfix"></div>';
 						$shortcode .='</div>';
@@ -472,6 +494,8 @@ function posts( $atts, $content = null ) {
 					$shortcode .='<div class="poster-carousel">';
 					$shortcode .='<div class="post-carousel">';
 					while ( $the_query->have_posts() ) : $the_query->the_post();
+					$excerpt = get_post_meta(get_the_ID(), "magazin_excerpt", true);
+					if (!empty($excerpt)) { $excerpt_ = $excerpt; } else { $excerpt_ = magazin_custom_excerpts(19); }
 						if (has_post_thumbnail()) {
 							$shortcode .='<div class="poster large '; if (has_post_format( 'video' )) { $shortcode .= ' video'; } $shortcode .='">';
 								$shortcode .='<div class="poster-image">';
@@ -484,7 +508,7 @@ function posts( $atts, $content = null ) {
 										$shortcode .='</span></div>';
 										$shortcode .='<div class="poster-large-content-in">';
 											$shortcode .='<a href="'. get_permalink().'"><h2>'. get_the_title() .'</h2></a>';
-											$shortcode .='<p>'.magazin_custom_excerpts(19).'</p>';
+											$shortcode .='<p>'.$excerpt_.'</p>';
 											$shortcode .='<a class="poster-large-link" href="'. get_permalink().'"><div><span>'. esc_html__( 'Read More', 'magazin'  ) .'</span></div></a>';
 										$shortcode .='</div>';
 									$shortcode .='</div>';

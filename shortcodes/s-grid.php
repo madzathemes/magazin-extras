@@ -13,6 +13,9 @@ function grid( $atts, $content = null ) {
 			'offset'=> '',
 			'position'=> 'off',
 			'title'=> 'Title',
+			'author'=> '',
+			'taxonomy'=> '',
+			'taxonomy_term'=> '',
 			), $atts));
 
 			global $exclude_single_id, $post;
@@ -21,6 +24,12 @@ function grid( $atts, $content = null ) {
 			else {
 				$paged = "";
 			}
+
+			$tax_query = "";
+			if(!empty($taxonomy) and !empty($taxonomy_term)) {
+				$tax_query =  array(array('taxonomy' => $taxonomy,'field' => 'slug','terms' => array( $taxonomy_term )));
+			}
+			
 	$item_nr = "4";
 	if($type=="2") { $item_nr = "2"; }
 	if($type=="3") { $item_nr = "3"; }
@@ -35,6 +44,8 @@ function grid( $atts, $content = null ) {
 				'offset'=>$offset,
 				'category_name'=>$category,
 				'paged' => $paged,
+				'author_name'=>$author,
+				'tax_query' => $tax_query,
 				'tag'=>$tag
 			);
 
@@ -49,6 +60,8 @@ function grid( $atts, $content = null ) {
 				'meta_key' => 'magazin_post_views_count',
 				'category_name'=>$category,
 				'paged' => $paged,
+				'author_name'=>$author,
+				'tax_query' => $tax_query,
 				'tag'=>$tag
 			);
 			$args_shares = array(
@@ -61,6 +74,8 @@ function grid( $atts, $content = null ) {
 				'offset'=>$offset,
 				'meta_key' => 'magazin_share_count_real',
 				'category_name'=>$category,
+				'author_name'=>$author,
+				'tax_query' => $tax_query,
 				'paged' => $paged,
 				'tag'=>$tag
 			);

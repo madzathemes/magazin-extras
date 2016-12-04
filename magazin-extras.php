@@ -4,7 +4,7 @@ Plugin Name: Magazin
 Plugin URI: https://themeforest.net
 Description: Magazin Plugin
 Author: Madars Bitenieks
-Version: 1.2.4
+Version: 1.2.5
 Author URI: https://themeforest.net/user/madza
 */
 include_once ('plugins/easy-google-fonts/easy-google-fonts.php');
@@ -116,6 +116,7 @@ function magazin_footer_hooks() { $options = get_option("sticky_sidebar"); $auto
 		 		 autoplay: true,
 		 		<?php } ?>
 			 autoplayTimeout:5000,
+			 <?php if(is_rtl()){ ?>rtl: true,<?php } ?>
 			 speed:450,
 			 prevArrow: '<div class="poster-prev"></div>',
 			 nextArrow: '<div class="poster-next"></div>',
@@ -140,12 +141,14 @@ function magazin_footer_hooks() { $options = get_option("sticky_sidebar"); $auto
 			jQuery('.post-gallery').slick({
 				 arrows: false,
 				 asNavFor: '.post-gallery-nav',
+				 <?php if(is_rtl()){ ?>rtl: true,<?php } ?>
 				 adaptiveHeight: true,
 				 lazyLoad: 'ondemand',
 			});
 			jQuery('.post-gallery-nav').slick({
 				 slidesToShow: 5,
 				 asNavFor: '.post-gallery',
+				 <?php if(is_rtl()){ ?>rtl: true,<?php } ?>
 				 centerPadding: '20px',
 				 focusOnSelect: true,
 				 lazyLoad: 'ondemand',
@@ -246,7 +249,9 @@ function magazin_get_shares( $post_id ) {
 	$cache_key = 'magazin_share_cash' . $post_id;
 	$access_token = 'APP_ID|APP_SECRET';
 	$count = get_transient( $cache_key ); // try to get value from Wordpress cache
+	$share_time = get_option("share_time");
 
+	if(!empty( $share_time )){ $share_times = $share_time; } else { $share_times = 36000;  }
 	// if no value in the cache
 	if ( $count === false ) {
 		$count = "0";
@@ -260,7 +265,7 @@ function magazin_get_shares( $post_id ) {
 
 		update_post_meta($post_id, 'magazin_share_count_real', $count);
 
-		set_transient( $cache_key, $count, 36000 ); // store value in cache for a 10 hour
+		set_transient( $cache_key, $count, $share_times ); // store value in cache for a 10 hour
 	}
 	return $count;
 }

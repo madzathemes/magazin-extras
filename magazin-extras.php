@@ -5,7 +5,7 @@ Plugin URI: https://themeforest.net
 Description: Magazin Plugin
 Author: Madars Bitenieks
 Version: 1.2.5
-Author URI: https://themeforest.net/user/madza
+Author URI: https://themeforest.net
 */
 include_once ('plugins/easy-google-fonts/easy-google-fonts.php');
 include_once ('plugins/megadropdownmenu-master/megadropdown.php');
@@ -47,7 +47,6 @@ function magazin_random_add_rewrite() {
        $wp->add_query_var('random');
        add_rewrite_rule('random/?$', 'index.php?random=1', 'top');
 }
-
 add_action('template_redirect','magazin_random_template');
 function magazin_random_template() {
        if (get_query_var('random') == 1) {
@@ -272,6 +271,9 @@ function magazin_get_shares( $post_id ) {
 
 function SearchFilter($query) {
 
+	if ( is_admin() || ! $query->is_main_query() )
+ return;
+
 	if ($query->is_search) {
 
 		$query->set('post_type', 'post');
@@ -285,6 +287,8 @@ function SearchFilter($query) {
 add_filter('pre_get_posts','SearchFilter');
 
 function wpsites_exclude_latest_post($query) {
+	if ( is_admin() || ! $query->is_main_query() )
+ return;
 	if ($query->is_category() && $query->is_main_query()) {
 		$query->set( 'offset', '1' );
 	}
@@ -295,6 +299,10 @@ add_action('pre_get_posts', 'wpsites_exclude_latest_post');
 
 add_action('pre_get_posts', 'myprefix_query_offset', 1 );
 function myprefix_query_offset(&$query) {
+
+
+		if ( is_admin() || ! $query->is_main_query() )
+	 return;
 
     //Before anything else, make sure this is the right query...
     if ( ! $query->is_category() ) {

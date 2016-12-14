@@ -59,6 +59,11 @@ function magazin_random_template() {
        }
 }
 
+function magazin_javascript_detection() {
+	echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
+}
+add_action( 'wp_head', 'magazin_javascript_detection', 0 );
+
 function magazin_theme_setup() {
 
 	add_image_size( 'magazin_350', 420, 320, true );

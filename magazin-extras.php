@@ -276,9 +276,6 @@ function magazin_get_shares( $post_id ) {
 
 function SearchFilter($query) {
 
-	if ( is_admin() || ! $query->is_main_query() )
- return;
-
 	if ($query->is_search) {
 
 		$query->set('post_type', 'post');

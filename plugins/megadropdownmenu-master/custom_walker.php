@@ -65,7 +65,7 @@ class md_walker extends Walker_Nav_Menu {
         $item_output =  $args->before;
 
         if($item->is_mega_menu == null){
-        	$item_output .= '<a'. $attributes .' class="">';
+        	$item_output .= '<a'. $attributes .' class="intar">';
 
         }
         // $item_output .= $args->link_before .$prepend.apply_filters( 'the_title', $item->title, $item->ID ).$append;

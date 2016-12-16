@@ -91,91 +91,6 @@ function magazin_header_hooks() {
 }
 add_action('wp_head', 'magazin_header_hooks');
 
-
-function magazin_footer_hooks() { $options = get_option("sticky_sidebar"); $autoplay = get_option("carousel_autoplay"); ?>
-
-  <script type="text/javascript">
-	if ("ontouchstart" in document.documentElement) {	if ( top !== self ) top.location.replace( self.location.href );}
-  jQuery(document).ready(function(){
-		'use strict';
-    <?php if(!empty($options)){ if($options=="1"){?>
-		jQuery('.sidebar, .panel-grid-cell').theiaStickySidebar({
-        additionalMarginTop: 29,
-				minWidth: 1200
-    });
-		<?php } } else { ?>
-		jQuery('.sidebar, .panel-grid-cell').theiaStickySidebar({
-        additionalMarginTop: 29,
-				minWidth: 1200
-    });
-		<?php } ?>
-		jQuery('.post-carousel').slick({
-			 slidesToShow: 4,
-			 variableWidth: true,
-			 lazyLoad: 'ondemand',
-			 <?php if(!empty($autoplay)){
-				 if($autoplay=="1"){ ?>
-				 autoplay: true,
-				 <?php } } else { ?>
-		 		 autoplay: true,
-		 		<?php } ?>
-			 autoplayTimeout:5000,
-			 <?php if(is_rtl()){ ?>rtl: true,<?php } ?>
-			 speed:450,
-			 prevArrow: '<div class="poster-prev"></div>',
-			 nextArrow: '<div class="poster-next"></div>',
-			 responsive: [
-		    {
-		      breakpoint: 600,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1,
-						variableWidth: false,
-						autoplay: false,
-		      }
-		    }]
-		});
-
-  });
-
-  </script>
-	<?php if ( has_post_format( 'gallery' )){ ?>
-		<script type="text/javascript">
-		jQuery(document).ready(function(){
-			jQuery('.post-gallery').slick({
-				 arrows: false,
-				 asNavFor: '.post-gallery-nav',
-				 <?php if(is_rtl()){ ?>rtl: true,<?php } ?>
-				 adaptiveHeight: true,
-				 lazyLoad: 'ondemand',
-			});
-			jQuery('.post-gallery-nav').slick({
-				 slidesToShow: 5,
-				 asNavFor: '.post-gallery',
-				 <?php if(is_rtl()){ ?>rtl: true,<?php } ?>
-				 centerPadding: '20px',
-				 focusOnSelect: true,
-				 lazyLoad: 'ondemand',
-				 prevArrow: '<div class="slick-prev"></div>',
-				 nextArrow: '<div class="slick-next"></div>',
-				 responsive: [
-					{
-						breakpoint: 600,
-						settings: {
-						centerPadding: '0px',
-						}
-					}]
-			});
-		});
-
-		</script>
-	<?php } ?>
-	<?php
-}
-
-add_action('wp_footer', 'magazin_footer_hooks');
-
-
 function magazin_custom_excerpts($limit) {
     return wp_trim_words(get_the_content(), $limit);
 }
@@ -357,5 +272,13 @@ function myprefix_adjust_offset_pagination($found_posts, $query) {
     return $found_posts;
 }
 
-
+function mt_header_script() {
+		$autoplay = get_option("carousel_autoplay");
+		$options = get_option("sticky_sidebar");
+		wp_enqueue_script('mt-effects', get_template_directory_uri() . '/inc/js/effects.js', array('jquery'), '1.0', true);
+		if(is_rtl()){ wp_add_inline_script( 'mt-effects', 'var $rtl = "true";', 'before' ); } else { wp_add_inline_script( 'mt-effects', 'var $rtl = "false";', 'before' ); }
+		if(!empty($autoplay)){ if($autoplay=="1"){ wp_add_inline_script( 'mt-effects', 'var $autoplay = "true";', 'before' ); } else { wp_add_inline_script( 'mt-effects', 'var $autoplay = "false";', 'before' ); } } else { wp_add_inline_script( 'mt-effects', 'var $autoplay = "false";', 'before' ); }
+		if(!empty($options)){ if($options=="1"){ wp_add_inline_script( 'mt-effects', 'jQuery(document).ready(function() {jQuery(".sidebar, .panel-grid-cell").theiaStickySidebar({additionalMarginTop: 29,	minWidth: 1200});});', 'after' ); } } else { wp_add_inline_script( 'mt-effects', 'jQuery(document).ready(function() {jQuery(".sidebar, .panel-grid-cell").theiaStickySidebar({additionalMarginTop: 29,	minWidth: 1200});});', 'after' ); }
+}
+add_action('wp_enqueue_scripts', 'mt_header_script');
 ?>

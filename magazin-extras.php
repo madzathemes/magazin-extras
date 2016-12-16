@@ -4,7 +4,7 @@ Plugin Name: Magazin
 Plugin URI: https://themeforest.net
 Description: Magazin Plugin
 Author: Madars Bitenieks
-Version: 1.2.5
+Version: 1.2.6
 Author URI: https://themeforest.net
 */
 include_once ('plugins/easy-google-fonts/easy-google-fonts.php');

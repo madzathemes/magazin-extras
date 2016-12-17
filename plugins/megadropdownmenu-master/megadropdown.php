@@ -211,8 +211,7 @@ class megadropdown {
 				$new_item->url = '';
 
 				// open tag for megamenu
-				$new_item->title = '</a>';
-				$new_item->title .= '<div class="df-block-megamenu df-block-megamenu-'.esc_attr( $megadropdown_menu_cat ).'-'.esc_attr( $no_item ).'">';
+				$new_item->title = '<div class="df-block-megamenu df-block-megamenu-'.esc_attr( $megadropdown_menu_cat ).'-'.esc_attr( $no_item ).'">';
 				$new_item->title .= '<div class="row">'; // open tag for row
 
 				$posts_per_page = (sizeof($sub_cat) == 0) ? 5 : 4;
@@ -365,7 +364,6 @@ class megadropdown {
 
 				$new_item->title .= '</div>'; // close tag for row
 				$new_item->title .= '</div>'; // close tag for megamenu
-				$new_item->title .= '<a>';
 
 				$buffer_items[] = $new_item;
 			}else{
@@ -451,18 +449,23 @@ class megadropdown {
 	    		foreach ($posts as $post) {
 	    			$buff .= '<div class="megamenu-span mega-5">';
 						$buff .= '<div class="mega-post-in">';
-
 	    			$buff .= '<a href="'. $this->get_href($post) .'" >';
-
-												$buff .='<div class="poster-cat mt-theme-background"><span>';
-													$category_name = get_the_category($post->ID);
-													if(!empty($category_name[0])) { $buff .=''.$category_name[0]->name.''; }
-													if(!empty($category_name[1])) { $buff .=', '.$category_name[1]->name.''; }
-													if(!empty($category_name[2])) { $buff .=', '.$category_name[2]->name.''; }
-												$buff .= '</span></div>';
-
 						$buff .= $this->image_post($post);
-
+						$buff .= '</a>';
+						$buff .= '<a href="'. $this->get_href($post) .'" ><h4>';
+						$buff .= ''.$post->post_title.'';
+	    			$buff .= '</h4></a>';
+						$buff .= '</div>';
+	    			$buff .= '</div>';
+	    		}
+	    		$buff .= '</div>';
+    		}else{
+    			$buff .= '<div class="row megamenu-grid-container-'.esc_attr($cat_id).'-'.esc_attr($no_item).'">';
+	    		foreach ($posts as $post) {
+						$buff .= '<div class="megamenu-span mega-5">';
+						$buff .= '<div class="mega-post-in">';
+	    			$buff .= '<a href="'. $this->get_href($post) .'" >';
+						$buff .= $this->image_post($post);
 						$buff .= '</a>';
 						$buff .= '<a href="'. $this->get_href($post) .'" ><h4>';
 						$buff .= ''.$post->post_title.'';
@@ -483,15 +486,17 @@ class megadropdown {
      * @param $post
      * @return featured image of post
      */
-		 function image_post($post){
-     	$thumbs='';
-     	if( has_post_thumbnail( $post->ID) ){
-							$thumbs .='<div class="mt-megamenu-img poster-image mt-radius"><div class="mt-post-image"><div class="mt-post-image-background" style="background-image:url('. get_the_post_thumbnail_url($post->ID,'magazin_5').');"></div><img alt="'.$post->post_title.'" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  data-src="'. get_the_post_thumbnail_url($post->ID,'medium').'" width="550" height="550" /></div></div>';
-			}else{
-     		$thumbs = '';
-     	}
-     	return $thumbs;
-     }
+    function image_post($post){
+    	$thumbs='';
+    	if( has_post_thumbnail( $post->ID) ){
+						$post_thumbnail_id = get_post_thumbnail_id( $post->ID );
+						$src = wp_get_attachment_image_src($post_thumbnail_id,  'magazin_350', false, '' );
+						$thumbs .='<div class="lazyload mt-post-image"  data-bg="'. $src[0] .'"></div>';
+    	}else{
+    		$thumbs = '';
+    	}
+    	return $thumbs;
+    }
 
     /**
      * get_href

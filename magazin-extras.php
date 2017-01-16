@@ -281,4 +281,20 @@ function mt_header_script() {
 		if(!empty($options)){ if($options=="1"){ wp_add_inline_script( 'mt-effects', 'jQuery(document).ready(function() {jQuery(".sidebar, .panel-grid-cell").theiaStickySidebar({additionalMarginTop: 29,	minWidth: 1200});});', 'after' ); } } else { wp_add_inline_script( 'mt-effects', 'jQuery(document).ready(function() {jQuery(".sidebar, .panel-grid-cell").theiaStickySidebar({additionalMarginTop: 29,	minWidth: 1200});});', 'after' ); }
 }
 add_action('wp_enqueue_scripts', 'mt_header_script');
+
+function modify_contact_methods($profile_fields) {
+
+	// Add new fields
+	$profile_fields['twitter'] = 'Twitter URL';
+	$profile_fields['facebook'] = 'Facebook URL';
+	$profile_fields['gplus'] = 'Google+ URL';
+	$profile_fields['instagram'] = 'Instagram URL';
+	$profile_fields['linkedin'] = 'LinkedIn URL';
+	$profile_fields['pinterest'] = 'Pinterest URL';
+	$profile_fields['youtube'] = 'YouTube URL';
+	$profile_fields['dribbble'] = 'Dribbble URL';
+
+	return $profile_fields;
+}
+add_filter('user_contactmethods', 'modify_contact_methods');
 ?>

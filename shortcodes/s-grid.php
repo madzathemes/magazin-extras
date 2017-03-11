@@ -283,6 +283,122 @@ function grid( $atts, $content = null ) {
 					endwhile;
 				}
 
+				if($type=="4"){
+					$shortcode .='<div class="mt-slide-1 mt-cool-slider mt-radius">';
+						$shortcode .='<div class="mt-slide-1-img-left">';
+							while ( $the_query->have_posts() ) : $the_query->the_post();
+
+									if ( has_post_thumbnail() ) {
+
+														$shortcode .='<div class="mt-slide-wrap"><div class="mt-slide-1-image" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_1300').');"></div></div>';
+
+									}
+
+							endwhile;
+						$shortcode .='</div>';
+
+						$shortcode .='<div class="mt-slide-1-img">';
+							$shortcode .='<div class="mt-cool-slider-carousel">';
+								while ( $the_query->have_posts() ) : $the_query->the_post();
+
+										if ( has_post_thumbnail() ) {
+
+															$shortcode .='<div class="mt-slide-wrap"><div class="mt-slide-1-image" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_1300').');"></div></div>';
+
+										}
+
+								endwhile;
+							$shortcode .='</div>';
+
+
+
+
+							$i=1;
+							$shortcode .='<div class="mt-cool-slider-text">';
+								$shortcode .='<div class="mt-cool-slider-big-title">';
+									while ( $the_query->have_posts() ) : $the_query->the_post();
+										$shortcode .='<div class="mt-slide-1-title nr-1">';
+											$shortcode .='<div class="mt-slide-1-cat">';
+												$category_name = get_the_category(get_the_ID());
+												$cat_nr = get_theme_mod( 'mt_post_meta_cat', 1 );
+												if(!empty($category_name[0]) and $cat_nr == 1 or $cat_nr == 2 or $cat_nr == 3) { $shortcode .=''.$category_name[0]->name.''; }
+												if(!empty($category_name[1]) and $cat_nr == 2 or $cat_nr == 3) { $shortcode .=', '.$category_name[1]->name.''; }
+												if(!empty($category_name[2]) and $cat_nr == 3) { $shortcode .=', '.$category_name[2]->name.''; }
+											$shortcode .='</div>';
+											$shortcode .='<a href="'. get_the_permalink().'">';
+												$shortcode .='<h2>'. get_the_title() .'</h2>';
+											$shortcode .='</a>';
+										$shortcode .='</div>';
+										$i++;
+									endwhile;
+								$shortcode .='</div>';
+
+								$shortcode .='<div class="mt-cool-slider-small-title">';
+									while ( $the_query->have_posts() ) : $the_query->the_post();
+									$shortcode .='<div class="mt-slide-1-title nr-2">';
+										$shortcode .='<div class="mt-slide-1-cat">';
+											$category_name = get_the_category(get_the_ID());
+											$cat_nr = get_theme_mod( 'mt_post_meta_cat', 1 );
+											if(!empty($category_name[0]) and $cat_nr == 1 or $cat_nr == 2 or $cat_nr == 3) { $shortcode .=''.$category_name[0]->name.''; }
+											if(!empty($category_name[1]) and $cat_nr == 2 or $cat_nr == 3) { $shortcode .=', '.$category_name[1]->name.''; }
+											if(!empty($category_name[2]) and $cat_nr == 3) { $shortcode .=', '.$category_name[2]->name.''; }
+										$shortcode .='</div>';
+										$shortcode .='<a href="'. get_the_permalink().'">';
+											$shortcode .='<h2>'. get_the_title() .'</h2>';
+										$shortcode .='</a>';
+									$shortcode .='</div>';
+									$i++;
+									endwhile;
+								$shortcode .='</div>';
+							$shortcode .='</div>';
+
+						$shortcode .='</div>';
+
+						$shortcode .='<div class="mt-slide-1-img-right ">';
+							while ( $the_query->have_posts() ) : $the_query->the_post();
+
+									if ( has_post_thumbnail() ) {
+
+														$shortcode .='<div class="mt-slide-wrap"><div class="mt-slide-1-image" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_1300').');"></div></div>';
+
+									}
+
+							endwhile;
+						$shortcode .='</div>';
+
+					$shortcode .='</div>';
+				}
+
+				if($type=="5"){
+					$i=1;
+					$shortcode .='<div class="mt-slide-1 mt-radius mt-slide-simple">';
+					while ( $the_query->have_posts() ) : $the_query->the_post();
+
+									if ( has_post_thumbnail() ) {
+										if($i==1) {
+											$shortcode .='<div class="mt-slide-1-img">';
+												$shortcode .='<div class="mt-slide-1-image" style="background-image:url('. get_the_post_thumbnail_url(get_the_ID(),'magazin_1300').');"></div>';
+											$shortcode .='</div>';
+										}
+									}
+
+								$shortcode .='<div class="mt-slide-1-title nr-'.$i.'">';
+									$shortcode .='<div class="mt-slide-1-cat">';
+										$category_name = get_the_category(get_the_ID());
+										$cat_nr = get_theme_mod( 'mt_post_meta_cat', 1 );
+										if(!empty($category_name[0]) and $cat_nr == 1 or $cat_nr == 2 or $cat_nr == 3) { $shortcode .=''.$category_name[0]->name.''; }
+										if(!empty($category_name[1]) and $cat_nr == 2 or $cat_nr == 3) { $shortcode .=', '.$category_name[1]->name.''; }
+										if(!empty($category_name[2]) and $cat_nr == 3) { $shortcode .=', '.$category_name[2]->name.''; }
+									$shortcode .='</div>';
+									$shortcode .='<a href="'. get_the_permalink().'">';
+										$shortcode .='<h2>'. get_the_title() .'</h2>';
+									$shortcode .='</a>';
+								$shortcode .='</div>';
+						$i++;
+					endwhile;
+					$shortcode .='</div>';
+				}
+
 				$shortcode .='</div>';
 			}
 

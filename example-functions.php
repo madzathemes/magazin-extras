@@ -294,6 +294,20 @@ function post_metabox() {
 		),
 	));
 
+	$cmb_demo->add_field( array(
+		'name' => esc_html__( 'Featured Image Copyright', 'magazin' ),
+		'desc' => esc_html__( 'Add image copyright bottom to featured image', 'magazin' ),
+		'id'   => $prefix . 'img_copyright',
+		'type' => 'text',
+		// 'repeatable' => true,
+		// 'column' => array(
+		// 	'name'     => esc_html__( 'Column Title', 'magazin' ), // Set the admin column title
+		// 	'position' => 2, // Set as the second column.
+		// );
+		// 'display_cb' => 'yourprefix_display_text_small_column', // Output the display of the column values through a callback.
+	) );
+
+
 
 }
 

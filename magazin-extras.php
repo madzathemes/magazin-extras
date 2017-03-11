@@ -4,7 +4,7 @@ Plugin Name: Magazin
 Plugin URI: https://themeforest.net
 Description: Magazin Plugin
 Author: Madars Bitenieks
-Version: 1.2.6
+Version: 1.2.8
 Author URI: https://themeforest.net
 */
 include_once ('plugins/easy-google-fonts/easy-google-fonts.php');
@@ -175,16 +175,19 @@ function magazin_get_shares( $post_id ) {
 	if ( $count === false ) {
 		$count = "0";
 		$response = wp_remote_get('https://graph.facebook.com/v2.7/?id=' . urlencode( get_permalink( $post_id ) ) . '&access_token=' . get_option("facebook_token"));
-		$body = json_decode( $response['body'] );
-		//print_r($body);
 
-		if (!empty($body->share)) {
-      $count = intval( $body->share->share_count );
-    }
+		if(!is_wp_error($response)) {
+			$body = json_decode( $response['body'] );
+			//print_r($body);
 
-		update_post_meta($post_id, 'magazin_share_count_real', $count);
+			if (!empty($body->share)) {
+	      $count = intval( $body->share->share_count );
+	    }
 
-		set_transient( $cache_key, $count, $share_times ); // store value in cache for a 10 hour
+			update_post_meta($post_id, 'magazin_share_count_real', $count);
+
+			set_transient( $cache_key, $count, $share_times ); // store value in cache for a 10 hour
+		}
 	}
 	return $count;
 }
@@ -202,16 +205,6 @@ function SearchFilter($query) {
 }
 
 add_filter('pre_get_posts','SearchFilter');
-
-function wpsites_exclude_latest_post($query) {
-	if ( is_admin() || ! $query->is_main_query() )
- return;
-	if ($query->is_category() && $query->is_main_query()) {
-		$query->set( 'offset', '1' );
-	}
-}
-
-add_action('pre_get_posts', 'wpsites_exclude_latest_post');
 
 
 add_action('pre_get_posts', 'myprefix_query_offset', 1 );

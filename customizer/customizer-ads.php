@@ -15,7 +15,7 @@ function magazin_customize_ads($wp_customize){
   $wp_customize->add_section('bg_ad_top', array(
   'title'    	=> esc_html__('Background ad', 'rimi'),
   'priority' => 5,
-  'panel'  => 'rimi_ads',
+  'panel'  => 'magazin_ads',
 ));
 
 Kirki::add_field( 'magazin_theme_options[bg_ad_top]', array(

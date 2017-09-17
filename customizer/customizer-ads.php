@@ -12,6 +12,27 @@ function magazin_customize_ads($wp_customize){
     'description'    => '',
   ));
 
+  $wp_customize->add_section('bg_ad_top', array(
+  'title'    	=> esc_html__('Background ad', 'rimi'),
+  'priority' => 5,
+  'panel'  => 'rimi_ads',
+));
+
+Kirki::add_field( 'magazin_theme_options[bg_ad_top]', array(
+  'type'        => 'code',
+  'settings'    => 'magazin_theme_options[bg_ad_top]',
+  'label'       => esc_html__( 'YOUR AD CODE', 'rimi' ),
+  'section'     => 'bg_ad_top',
+  'default'     => '',
+  'priority'    => 10,
+  'option_type' => 'option',
+  'choices'     => array(
+    'language' => 'css, html, javascript',
+    'theme'    => 'monokai',
+    'height'   => 250,
+  ),
+));
+
   $wp_customize->add_section('sidebar_ad_top', array(
     'title'    	=> esc_html__('Sidebar top ad', 'magazin'),
     'priority' => 5,

@@ -213,7 +213,7 @@ function posts( $atts, $content = null ) {
 										}
 										$shortcode .='<div class="poster-data color-silver-light">';
 											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -228,7 +228,7 @@ function posts( $atts, $content = null ) {
 									$shortcode .='</span></div>';
 									$shortcode .='<div class="poster-data color-silver-light">';
 										$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-										$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+										$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 										if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 									$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -239,7 +239,7 @@ function posts( $atts, $content = null ) {
 								if ( has_post_format( 'video' ) ) {
 										$shortcode .='<div class="poster-data color-silver-light">';
 											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 								}
@@ -293,7 +293,7 @@ function posts( $atts, $content = null ) {
 										}
 										$shortcode .='<div class="poster-data color-silver-light">';
 											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -308,7 +308,7 @@ function posts( $atts, $content = null ) {
 									$shortcode .='</span></div>';
 									$shortcode .='<div class="poster-data color-silver-light">';
 										$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-										$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+										$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 										if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 									$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -318,7 +318,7 @@ function posts( $atts, $content = null ) {
 							if ( has_post_format( 'video' ) ) {
 									$shortcode .='<div class="poster-data color-silver-light">';
 										$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-										$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+										$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 										if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 									$shortcode .='</div>';
 							}
@@ -371,7 +371,7 @@ function posts( $atts, $content = null ) {
 										}
 										$shortcode .='<div class="poster-data color-silver-light">';
 											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -386,7 +386,7 @@ function posts( $atts, $content = null ) {
 									$shortcode .='</span></div>';
 									$shortcode .='<div class="poster-data color-silver-light">';
 										$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-										$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+										$shortcode .='<span class="poster-views">'. $viewes .' '. esc_html__("views", "magazin") .'</span>';
 										if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 									$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -397,7 +397,7 @@ function posts( $atts, $content = null ) {
 								if ( has_post_format( 'video' ) ) {
 										$shortcode .='<div class="poster-data color-silver-light">';
 											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 								}
@@ -452,7 +452,7 @@ function posts( $atts, $content = null ) {
 
 												$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
 
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -467,7 +467,7 @@ function posts( $atts, $content = null ) {
 									$shortcode .='</span></div>';
 									$shortcode .='<div class="poster-data color-silver-light">';
 										$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-										$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+										$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 										if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 									$shortcode .='</div>';
 									$shortcode .='</div>';
@@ -478,7 +478,7 @@ function posts( $atts, $content = null ) {
 								if ( has_post_format( 'video' ) ) {
 										$shortcode .='<div class="poster-data color-silver-light">';
 											$shortcode .='<span class="poster-shares">'. $shares .' '. esc_html__("shares", "magazin") .'</span>';
-											$shortcode .='<span class="poster-views">'. $viewes .' views</span>';
+											$shortcode .='<span class="poster-views">'. $viewes .'  '. esc_html__("views", "magazin") .'</span>';
 											if (get_comments_number()!="0") { $shortcode .='<span class="poster-comments">'.get_comments_number().'</span>'; }
 										$shortcode .='</div>';
 								}

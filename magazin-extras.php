@@ -4,7 +4,7 @@ Plugin Name: Magazin
 Plugin URI: https://themeforest.net
 Description: Magazin Plugin
 Author: Madars Bitenieks
-Version: 1.2.8
+Version: 1.2.9
 Author URI: https://themeforest.net
 */
 include_once ('plugins/easy-google-fonts/easy-google-fonts.php');
@@ -34,6 +34,8 @@ include_once ('customizer/customizer-ads.php');
 include_once ('customizer/customizer-posts.php');
 include_once ('example-functions.php');
 include_once ('plugins/kirki/kirki.php');
+
+include_once ('plugins/social-count-plus-master/social-count-plus.php');
 add_filter('widget_text', 'do_shortcode');
 
 function magazin_text_domain() {
@@ -165,54 +167,63 @@ function admin_js() {
 add_action('admin_footer', 'admin_js');
 
 function magazin_get_shares( $post_id ) {
-	$cache_key = 'magazin_share_cash' . $post_id;
-	$access_token = 'APP_ID|APP_SECRET';
-	$count = get_transient( $cache_key ); // try to get value from Wordpress cache
-	$share_time = get_option("share_time");
+		$mt_social = get_option( 'socialcountplus_settings');
+		$cache_key = 'magazin_share_cache' . $post_id;
+		if(isset($mt_social['facebook_app_id']) and isset($mt_social['facebook_app_secret'])) { $facebook_token = $mt_social['facebook_app_id'].'|'.$mt_social['facebook_app_secret']; } else { $facebook_token = ""; }
+		$count = get_transient( $cache_key ); // try to get value from Wordpress cache
+		$share_time = get_option("share_time");
 
-	if(!empty( $share_time )){ $share_times = $share_time; } else { $share_times = 36000;  }
-	// if no value in the cache
-	if ( $count === false ) {
-		$count = "0";
-		$response = wp_remote_get('https://graph.facebook.com/v2.7/?id=' . urlencode( get_permalink( $post_id ) ) . '&access_token=' . get_option("facebook_token"));
+		if(!empty( $share_time )){ $share_times = $share_time; } else { $share_times = 36000;  }
 
-		if(!is_wp_error($response)) {
-			$body = json_decode( $response['body'] );
-			//print_r($body);
+		if ( $count === false ) {
 
-			if (!empty($body->share)) {
-	      $count = intval( $body->share->share_count );
-	    }
+				$count = "0";
+				$response = wp_remote_get('https://graph.facebook.com/v2.7/?id=' . urlencode( get_permalink( $post_id ) ) . '&access_token=' . $facebook_token);
 
-			update_post_meta($post_id, 'magazin_share_count_real', $count);
+				if(!is_wp_error($response)) {
+					if (!empty($response)) {
+						$body = json_decode( $response['body'] );
+					}
 
-			set_transient( $cache_key, $count, $share_times ); // store value in cache for a 10 hour
-		}
-	}
+					if (!empty($body->share)) {
+			      $count = intval( $body->share->share_count );
+			    }
+
+					update_post_meta($post_id, 'magazin_share_count_real', $count);
+
+					set_transient( $cache_key, $count, $share_times ); // store value in cache for a 10 hour
+				}
+
+			}
+
 	return $count;
+
 }
+
 
 function SearchFilter($query) {
 
-	if ($query->is_search) {
+	if (!is_admin()) {
 
-		$query->set('post_type', 'post');
+		if ($query->is_search) {
+
+			$query->set('post_type', 'post');
+
+		}
+
+		return $query;
 
 	}
-
-	return $query;
-
 }
 
 add_filter('pre_get_posts','SearchFilter');
 
+function do_not_filter_anything( $value ) {
+	return $value;
+}
 
 add_action('pre_get_posts', 'myprefix_query_offset', 1 );
 function myprefix_query_offset(&$query) {
-
-
-		if ( is_admin() || ! $query->is_main_query() )
-	 return;
 
     //Before anything else, make sure this is the right query...
     if ( ! $query->is_category() ) {
@@ -225,9 +236,9 @@ function myprefix_query_offset(&$query) {
     	if($option['category_grid_style']=="1"){
     		$offset = 0;
     	} else if($option['category_grid_style']=="2"){
-    		$offset = 3;
-    	} else if($option['category_grid_style']=="3"){
     		$offset = 2;
+    	} else if($option['category_grid_style']=="3"){
+    		$offset = 3;
     	}
     }
 
@@ -255,7 +266,17 @@ add_filter('found_posts', 'myprefix_adjust_offset_pagination', 1, 2 );
 function myprefix_adjust_offset_pagination($found_posts, $query) {
 
     //Define our offset again...
-    $offset = 4;
+		$offset = 4;
+    $option = get_option("magazin_theme_options");
+    if(!empty($option['category_grid_style'])) {
+    	if($option['category_grid_style']=="1"){
+    		$offset = 0;
+    	} else if($option['category_grid_style']=="2"){
+    		$offset = 2;
+    	} else if($option['category_grid_style']=="3"){
+    		$offset = 3;
+    	}
+    }
 
     //Ensure we're modifying the right query object...
     if ( $query->is_category() ) {
@@ -264,6 +285,7 @@ function myprefix_adjust_offset_pagination($found_posts, $query) {
     }
     return $found_posts;
 }
+
 
 function mt_header_script() {
 		$autoplay = get_option("carousel_autoplay");
